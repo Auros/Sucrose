@@ -28,6 +28,11 @@ namespace Sucrose.Animation
             return state;
         }
 
+        public static SucroseState WithMotion(this SucroseState motion, SucroseAnimation animation)
+        {
+            motion.WithMotion(animation.Animation);
+            return motion;
+        }
 
         public static SucroseAnimation WithBinaryCurve(this SucroseAnimation animation, string path, Type type, string name, float zero, float one)
         {

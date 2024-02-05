@@ -25,10 +25,15 @@ namespace Sucrose
         // ReSharper disable once ConvertToAutoPropertyWhenPossible
         public SucroseState Destination => _destination;
 
+        public SucroseTransition WithCondition(string parameterName, AnimatorConditionMode mode, float threshold)
+        {
+            _transition.AddCondition(mode, threshold, parameterName);
+            return this;
+        }
+        
         public SucroseTransition WithCondition(SucroseParameter parameter, AnimatorConditionMode mode, float threshold)
         {
-            _transition.AddCondition(mode, threshold, parameter.Name);
-            return this;
+            return WithCondition(parameter.Name, mode, threshold);
         }
     }
 }

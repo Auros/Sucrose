@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Linq;
+using JetBrains.Annotations;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -35,6 +36,14 @@ namespace Sucrose
         {
             State.writeDefaultValues = value;
             return this;
+        }
+
+        public T GetStateMachineBehaviour<T>() where T : StateMachineBehaviour
+        {
+            var behaviour = State.behaviours.FirstOrDefault(b => b.GetType() == typeof(T));
+            if (behaviour == null)
+                behaviour = State.AddStateMachineBehaviour<T>();
+            return (T)behaviour;
         }
 
         public SucroseTransition TransitionTo(SucroseState state)

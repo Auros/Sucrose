@@ -3,13 +3,14 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEditor.Animations;
 using UnityEngine;
+using VRC.SDK3.Avatars.Components;
 
 namespace Sucrose
 {
     [PublicAPI]
     public class SucroseLayer : SucroseObject
     {
-        private Vector2 _cursor = new(1f, 0f);
+        private Vector2 _cursor = new(200f, 0f);
         
         internal AnimatorControllerLayer Layer { get; private set; }
         
@@ -60,7 +61,7 @@ namespace Sucrose
 
         internal Vector2 NextStatePosition()
         {
-            _cursor = new Vector2(_cursor.x, _cursor.y + 1);
+            _cursor = new Vector2(_cursor.x, _cursor.y + 80f);
             return _cursor;
         }
 
