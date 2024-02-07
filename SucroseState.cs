@@ -38,6 +38,14 @@ namespace Sucrose
             return this;
         }
 
+        public SucroseState Exit()
+        {
+            var exit = State.AddExitTransition();
+            exit.hasExitTime = true;
+            exit.exitTime = 0.01f;
+            return this;
+        }
+
         public T GetStateMachineBehaviour<T>() where T : StateMachineBehaviour
         {
             var behaviour = State.behaviours.FirstOrDefault(b => b.GetType() == typeof(T));
