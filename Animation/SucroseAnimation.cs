@@ -31,9 +31,17 @@ namespace Sucrose.Animation
 
         public SucroseAnimation WithCurve(string path, Type type, string name, SucroseCurveBuilder builder)
         {
-            SucroseCurve curve = new();
-            builder.Invoke(curve);
-            _clip.SetCurve(path, type, name, curve.Curve);
+            using (SucroseCurve curve = new())
+            {
+                builder.Invoke(curve);
+
+                _clip.SetCurve(path, type, name, curve.Curve);
+                if (curve.ObjectKeyframes.Count > 0)
+                {
+                    var binding = EditorCurveBinding.PPtrCurve(path, type, name);
+                    AnimationUtility.SetObjectReferenceCurve(_clip, binding, curve.ObjectKeyframes.ToArray());
+                }
+            }
             return this;
         }
 
